@@ -13,6 +13,8 @@ from sklearn.model_selection import train_test_split
 app = Flask(__name__)
 
 import os
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+
 
 # Get the absolute path of the directory where app.py is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -205,6 +207,10 @@ def create_soup(x):
     return ' '.join(x['keywords']) + ' ' + ' '.join(x['cast']) + ' ' + ' '.join(x['director']) + ' ' + ' '.join(x['genres'])
 
 df['soup'] = df.apply(create_soup, axis=1)
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))  # Get PORT from Render environment
+    app.run(host='0.0.0.0', port=port)
 
 
 @app.route('/')
