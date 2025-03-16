@@ -55,6 +55,7 @@ notebook_shim==0.2.4
 overrides==7.7.0
 packaging==24.2
 pandocfilters==1.5.1
+pandas
 parso==0.8.4
 pexpect==4.9.0
 platformdirs==4.3.6
@@ -92,3 +93,6 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 gunicorn
+numpy
+surprise
+scikit-learn
