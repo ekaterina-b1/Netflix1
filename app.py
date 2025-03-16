@@ -91,6 +91,7 @@ def hybrid_recommend(user_id, movie_title, top_n=10):
     return recommended_movies[['title', 'predicted_rating']]
 
 df1 = pd.read_csv(credits_path)
+df1['id'] = df1['id'].astype(str)
 
 # Merging two datasets on a common column id
 df1.columns = ['id','tittle','cast','crew']
