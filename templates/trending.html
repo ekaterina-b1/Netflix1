@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='anythingyouwant.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Trending Movies 🔥</h1>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Vote Count</th>
+                <th>Vote Average</th>
+                <th>Score</th>
+            </tr>
+            {% for movie in trending_movies.itertuples() %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.vote_count }}</td>
+                <td>{{ movie.vote_average }}</td>
+                <td>{{ movie.score }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>
