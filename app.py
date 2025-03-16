@@ -25,7 +25,7 @@ credits_path = os.path.join(BASE_DIR, "tmdb_5000_credits.csv")
 ratings_path = os.path.join(BASE_DIR, "ratings_small.csv")
 
 # Load CSV files
-movies = pd.read_csv(movies_path,n=1000)
+movies = pd.read_csv(movies_path)
 ratings = pd.read_csv(ratings_path)
 
 # Clean and preprocess movie data
@@ -90,7 +90,7 @@ def hybrid_recommend(user_id, movie_title, top_n=10):
 
     return recommended_movies[['title', 'predicted_rating']]
 
-df1 = pd.read_csv(credits_path,n=1000)
+df1 = pd.read_csv(credits_path)
 movies['id'] = movies['id'].astype(int)
 
 # Merging two datasets on a common column id
