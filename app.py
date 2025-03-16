@@ -206,19 +206,6 @@ def create_soup(x):
 
 df['soup'] = df.apply(create_soup, axis=1)
 
-# Import CountVectorizer and create the count matrix
-from sklearn.feature_extraction.text import CountVectorizer
-
-count = CountVectorizer(stop_words='english')
-cv_matrix = count.fit_transform(df['soup'])
-
-# Compute the Cosine Similarity matrix based on the count_matrix
-from sklearn.metrics.pairwise import cosine_similarity
-
-cosine_sim2 = cosine_similarity(cv_matrix, cv_matrix)
-
-indices = pd.Series(df.index, index=df['title'])
-
 
 @app.route('/')
 def home():
