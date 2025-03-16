@@ -41,7 +41,6 @@ trainset, testset = tts(data, test_size=0.2)
 
 # Train the collaborative filtering model (SVD)
 svd = SVD()
-svd.fit(trainset)
 
 # Build full trainset for predictions
 full_trainset = data.build_full_trainset()
@@ -118,21 +117,6 @@ def get_trending_movies():
     popular_movies = popular_movies.sort_values('score', ascending=False)
     return popular_movies[['title', 'vote_count', 'vote_average', 'score']].head(10)
 
-# Define a TF-IDF Vectorizer Object. Remove all english stop words such as 'the', 'a'
-tfidf = TfidfVectorizer(stop_words='english')
-
-# Replace NaN with an empty string
-df['overview'] = df['overview'].fillna('')
-
-# Construct the required TF-IDF matrix by fitting and transforming the data
-tfidf_matrix = tfidf.fit_transform(df['overview'])
-# Import linear_kernel from sklearn
-from sklearn.metrics.pairwise import linear_kernel
-
-# Compute cosine similarity using tfidf_matrix
-cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
-# Construct a reverse map of indices and movie titles
-indices = pd.Series(df.index, index=df['title']).drop_duplicates()
 
 def get_recommendations(title,cosine_sim=cosine_sim):
     # Get the index of the movie that matches the title
@@ -208,7 +192,9 @@ def create_soup(x):
 
 df['soup'] = df.apply(create_soup, axis=1)
 
+cv_matrix = count.fit_transform(df['soup'])
 
+cosine_sim2 = cosine_similarity(cv_matrix, cv_matrix)
 
 @app.route('/')
 def home():
@@ -240,4 +226,4 @@ def metadata_recommend():
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))  # Get PORT from Render environment
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=False)
