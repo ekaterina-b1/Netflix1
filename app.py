@@ -12,8 +12,19 @@ from sklearn.model_selection import train_test_split
 # Initialize Flask app
 app = Flask(__name__)
 
-movies = pd.read_csv("/Users/katebukina/PycharmProjects/MQUEA/Project/tmdb_5000_movies.csv")
-ratings = pd.read_csv("/Users/katebukina/PycharmProjects/MQUEA/Project/ratings_small.csv")
+import os
+
+# Get the absolute path of the directory where app.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Use relative paths instead of absolute paths
+movies_path = os.path.join(BASE_DIR, "tmdb_5000_movies.csv")
+credits_path = os.path.join(BASE_DIR, "tmdb_5000_credits.csv")
+ratings_path = os.path.join(BASE_DIR, "ratings_small.csv")
+
+# Load CSV files
+movies = pd.read_csv(movies_path)
+ratings = pd.read_csv(ratings_path)
 
 # Clean and preprocess movie data
 movies = movies[['id', 'title', 'overview']].dropna()
@@ -78,8 +89,8 @@ def hybrid_recommend(user_id, movie_title, top_n=10):
 
     return recommended_movies[['title', 'predicted_rating']]
 
-df1 = pd.read_csv("/Users/katebukina/PycharmProjects/MQUEA/Project/tmdb_5000_credits.csv")
-df2 = pd.read_csv("/Users/katebukina/PycharmProjects/MQUEA/Project/tmdb_5000_movies.csv")
+df1 = pd.read_csv(credits_path)
+df2 = pd.read_csv(movies_path)
 
 df1.columns = df1.columns.str.strip()
 df2.columns = df2.columns.str.strip()
