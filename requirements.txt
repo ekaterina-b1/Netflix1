@@ -2,5 +2,4 @@ flask
 pandas
 gunicorn
 numpy<2
-surprise
 scikit-learn
