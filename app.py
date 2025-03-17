@@ -1,12 +1,9 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
-from surprise import SVD, Dataset, Reader
-from surprise.model_selection import train_test_split as tts
 # Import libraries for content-based filtering
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.model_selection import train_test_split
 
 # Initialize Flask app
